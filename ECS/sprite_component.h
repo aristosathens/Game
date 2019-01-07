@@ -17,7 +17,7 @@
 // Class
 //
 
-class PositionComponent : public Component
+class SpriteComponent : public Component
 {
     //
     // Public
