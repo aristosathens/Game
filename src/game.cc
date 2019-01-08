@@ -6,9 +6,9 @@
 
 #include "game.h"
 
-#include "ECS/components.h"
+#include "../ECS/components.h"
 
-#include "util.h"
+#include "../util/util.h"
 #include "game_map.h"
 #include "texture_manager.h"
 
