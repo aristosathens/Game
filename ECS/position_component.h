@@ -23,24 +23,24 @@ class PositionComponent : public Component
     // Public
     //
     public:
+    PositionComponent() : x_pos(0), y_pos(0) {}
+    PositionComponent(int in_x, int in_y) : x_pos(in_x), y_pos(in_y) {}
+
     int x() const { return x_pos; }
     int y() const { return y_pos; }
+    void set_x(int in_x) { x_pos = in_x; }
+    void set_y(int in_y) { y_pos = in_y; }
 
-    void init() override
+    void set_position(int in_x, int in_y)
     {
-        set_position(0, 0);
+        x_pos = in_x;
+        y_pos = in_y;
     }
 
     void update() override
     {
         ++x_pos;
         ++y_pos;
-    }
-
-    void set_position(int in_x, int in_y)
-    {
-        x_pos = in_x;
-        y_pos = in_y;
     }
 
     //

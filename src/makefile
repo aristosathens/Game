@@ -44,7 +44,7 @@ OBJS = $(subst .h,.o, $(SRC_H)) $(subst .cc,.o, $(SRC_CC)) *.exe
 # all: $(TARGET)
 
 $(TARGET): $(SRC_CC)
-	$(CXX) $(CXXFLAGS) $(SRC_CC) -o main  -Wl,--allow-multiple-definition -I"C:\Program Files\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\include\SDL2" -L"C:\Program Files\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\lib" -lmingw32 -lSDL2main -lSDL2 -lSDL2_image
+	$(CXX) $(CXXFLAGS) $(SRC_CC) -o main  -Wl,--allow-multiple-definition -I"C:\Users\arist\Desktop\Aristos Documents\Projects\Game" -I"C:\Program Files\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\include\SDL2" -L"C:\Program Files\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\lib" -lmingw32 -lSDL2main -lSDL2 -lSDL2_image
 
 # $(TARGET): main.cc mapper.o mapper_graphics.o mapper.h mapper_graphics.h
 # 	$(CXX) $(CXXFLAGS) main.cc mapper. mapper_graphics.o -o main  -Wl,--allow-multiple-definition

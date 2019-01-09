@@ -32,8 +32,4 @@ class TextureManager
     static SDL_Renderer* renderer;
 };
 
-//
-// End compiler guard
-//
-
 #endif // TEXTURE_MANAGER_H

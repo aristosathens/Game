@@ -7,16 +7,15 @@
 #include "texture_manager.h"
 
 //
-// TextureManager static members
+// Static members
 //
 
 SDL_Renderer* TextureManager::renderer = nullptr;
 
 //
-// TextureManager class methods
+// Class methods
 //
 
-// SDL_Texture* TextureManager::load_texture(SDL_Renderer* renderer, const std::string file_name)
 SDL_Texture* TextureManager::load_texture(const std::string file_name)
 {
     if (!renderer) {

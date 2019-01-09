@@ -11,7 +11,7 @@
 // Include
 //
 
-#include "../util/util.h"
+#include "util/util.h"
 
 #include <iostream>
 #include <vector>
@@ -45,14 +45,15 @@ using component_array_t = std::array<Component*, max_num_components>;
 // Helper functions
 //
 
-inline componentID_t get_component_Type_ID()
+inline
+componentID_t get_component_Type_ID()
 {
     static componentID_t last_ID = 0;
     return last_ID++;
 }
 
-template<typename T>
-inline componentID_t get_component_Type_ID() noexcept
+template<typename T> inline
+componentID_t get_component_Type_ID() noexcept
 {
     static componentID_t typeID = get_component_Type_ID();
     return typeID;
@@ -71,7 +72,7 @@ class Component
     Entity* entity; // reference to owner
     virtual void init() {}
     virtual void update() {}
-    virtual void draw() {}
+    virtual void render() {}
     virtual ~Component() {}
 
     // private:
@@ -89,9 +90,9 @@ class Entity
         for (auto& component : components) component->update();
     }
 
-    void draw()
+    void render()
     {
-        for (auto& component : components) component->draw();
+        for (auto& component : components) component->render();
     }
 
     inline bool is_active() const
@@ -160,10 +161,10 @@ class Manager
         }
     }
 
-    void draw()
+    void render()
     {
         for (auto& entity : entities) {
-            entity->draw();
+            entity->render();
         }
     }
 
@@ -190,7 +191,6 @@ class Manager
     //
     private:
     std::vector<std::unique_ptr<Entity>> entities;
-
 };
 
 #endif // ECS_H

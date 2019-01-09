@@ -44,9 +44,9 @@ static matrix_t<Terrain, 20, 25> level1_matrix = { {
 // Construct GameMap object.
 GameMap::GameMap()
 {
-    dirt = TextureManager::load_texture("assets/dirt.png");
-    grass = TextureManager::load_texture("assets/grass.png");
-    water = TextureManager::load_texture("assets/water.png");
+    dirt = TextureManager::load_texture("../assets/dirt.png");
+    grass = TextureManager::load_texture("../assets/grass.png");
+    water = TextureManager::load_texture("../assets/water.png");
     map = nullptr;
 
     source.x = 0;

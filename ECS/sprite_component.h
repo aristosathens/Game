@@ -11,7 +11,11 @@
 // Include
 //
 
-#include "ECS.h"
+#include "components.h"
+#include "src/texture_manager.h"
+
+#include "SDL.h"
+
 
 //
 // Class
@@ -23,32 +27,47 @@ class SpriteComponent : public Component
     // Public
     //
     public:
-    int x() const { return x_pos; }
-    int y() const { return y_pos; }
+    SpriteComponent() = default;
+    SpriteComponent(const std::string& path)
+    {
+        set_texture(path);
+    }
 
     void init() override
     {
-        set_position(0, 0);
+        position = &entity->get_component<PositionComponent>();
+        source_rect.x = 0;
+        source_rect.y = 0;
+        source_rect.w = DEFAULT_SOURCE_RECT_WIDTH;
+        source_rect.h = DEFAULT_SOURCE_RECT_HEIGHT;
+        dest_rect.w = DEFAULT_DEST_RECT_WIDTH;
+        dest_rect.h = DEFAULT_DEST_RECT_HEIGHT;
+    }
+
+    void set_texture(const std::string& path)
+    {
+        texture = TextureManager::load_texture(path);
     }
 
     void update() override
     {
-        ++x_pos;
-        ++y_pos;
+        dest_rect.x = position->x();
+        dest_rect.y = position->y();
     }
 
-    void set_position(int in_x, int in_y)
+    void render() override
     {
-        x_pos = in_x;
-        y_pos = in_y;
+        TextureManager::draw(texture, source_rect, dest_rect);
     }
 
     //
     // Private
     //
     private:
-    int x_pos;
-    int y_pos;
+    PositionComponent* position;
+    SDL_Texture* texture;
+    SDL_Rect source_rect;
+    SDL_Rect dest_rect;
 };
 
 #endif // SPRITE_COMPONENT_H

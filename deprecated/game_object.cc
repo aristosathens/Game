@@ -1,5 +1,11 @@
 // Aristos Athens
 
+/*
+ *
+ *  DEPRECATED - USE ECS INSTEAD
+ * 
+ */
+
 //
 // Include
 //

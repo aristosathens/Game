@@ -6,9 +6,9 @@
 
 #include "game.h"
 
-#include "../ECS/components.h"
+#include "ECS/components.h"
 
-#include "../util/util.h"
+#include "util/util.h"
 #include "game_map.h"
 #include "texture_manager.h"
 
@@ -16,11 +16,9 @@
 // Globals
 //
 
-// GameObject* player;
-// GameMap* map;
-
 Manager manager;
-auto& newPlayer(manager.add_entity());
+GameMap* map;
+auto& player(manager.add_entity());
 
 //
 // Game class static members
@@ -51,6 +49,8 @@ void Game::init(const std::string title,
                 size_t width, size_t height,
                 bool full_screen)
 {
+    assets = assets_folder;
+
     // Generate SDL flags
     int flags = 0;
     if (full_screen) {
@@ -81,17 +81,13 @@ void Game::init(const std::string title,
     // Set up TextureManager
     TextureManager::init(renderer);
 
-    // Set up GameObjects
-    // GameObject::init(renderer);
+    // Generate map
+    map = new GameMap();
+    map->load_map(level1);
 
-    // Set up textures
-    assets = assets_folder;
-
-    // player = new GameObject(assets + "main_player.png", 0, 0);
-    // map = new GameMap();
-    // map->load_map(level1);
-
-    newPlayer.add_component<PositionComponent>();
+    // ECS
+    player.add_component<PositionComponent>(200, 200);
+    player.add_component<SpriteComponent>(assets + "main_player.png");
 
     is_running = true;
 }
@@ -101,7 +97,7 @@ void Game::handle_events()
     SDL_Event event;
     SDL_PollEvent(&event);
     switch (event.type) {
-        case SDL_QUIT:  // Later we will make closing the window generate an SDL_Quit event.
+        case SDL_QUIT:
             is_running = false;
             break;
         default:
@@ -111,24 +107,15 @@ void Game::handle_events()
 
 void Game::update()
 {
-    // player->update();
+    manager.refresh();
     manager.update();
-    print("Player position x: ");
-    print(newPlayer.get_component<PositionComponent>().x());
-    print(" y: ");
-    println(newPlayer.get_component<PositionComponent>().y());
 }
 
 void Game::render()
 {
     SDL_RenderClear(renderer);
-    // Add stuff to render here.
-    // Whatever get's rendered first is in the background.
-
-    // map->render();
-    // player->render();
-    manager.draw();
-
+    map->render();
+    manager.render();
     SDL_RenderPresent(renderer);
 }
 
