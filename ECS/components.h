@@ -24,7 +24,7 @@ const size_t DEFAULT_DEST_RECT_HEIGHT = 32;
 #include "ECS.h"
 
 // All components
-#include "position_component.h"
+#include "transform_component.h"
 #include "sprite_component.h"
 
 #endif // COMPONENTS_H

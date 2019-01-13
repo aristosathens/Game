@@ -7,8 +7,7 @@
 #include "game.h"
 
 #include "ECS/components.h"
-
-#include "util/util.h"
+#include "util/print.h"
 #include "game_map.h"
 #include "texture_manager.h"
 
@@ -86,7 +85,7 @@ void Game::init(const std::string title,
     map->load_map(level1);
 
     // ECS
-    player.add_component<PositionComponent>(200, 200);
+    player.add_component<TransformComponent>();
     player.add_component<SpriteComponent>(assets + "main_player.png");
 
     is_running = true;
@@ -109,6 +108,11 @@ void Game::update()
 {
     manager.refresh();
     manager.update();
+
+    if (player.get_component<TransformComponent>().x() > 100) {
+        player.get_component<SpriteComponent>().set_texture(assets + "dirt.png");
+    }
+
 }
 
 void Game::render()

@@ -16,7 +16,6 @@
 
 #include "SDL.h"
 
-
 //
 // Class
 //
@@ -35,7 +34,7 @@ class SpriteComponent : public Component
 
     void init() override
     {
-        position = &entity->get_component<PositionComponent>();
+        transform = &entity->get_component<TransformComponent>();
         source_rect.x = 0;
         source_rect.y = 0;
         source_rect.w = DEFAULT_SOURCE_RECT_WIDTH;
@@ -51,8 +50,8 @@ class SpriteComponent : public Component
 
     void update() override
     {
-        dest_rect.x = position->x();
-        dest_rect.y = position->y();
+        dest_rect.x = transform->x();
+        dest_rect.y = transform->y();
     }
 
     void render() override
@@ -64,7 +63,7 @@ class SpriteComponent : public Component
     // Private
     //
     private:
-    PositionComponent* position;
+    TransformComponent* transform;
     SDL_Texture* texture;
     SDL_Rect source_rect;
     SDL_Rect dest_rect;

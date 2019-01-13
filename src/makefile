@@ -37,7 +37,7 @@ MAKE = make
 # Files
 TARGET = main
 SRC_H = game.h
-SRC_CC = main.cc game.cc game_object.cc texture_manager.cc game_map.cc
+SRC_CC = main.cc game.cc texture_manager.cc game_map.cc
 OBJS = $(subst .h,.o, $(SRC_H)) $(subst .cc,.o, $(SRC_CC)) *.exe
 
 # Rules
