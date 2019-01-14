@@ -30,6 +30,11 @@ SDL_Texture* TextureManager::load_texture(const std::string file_name)
     return texture;
 }
 
+void TextureManager::destroy_texture(SDL_Texture* texture)
+{
+    SDL_DestroyTexture(texture);
+}
+
 void TextureManager::draw(SDL_Texture* texture, SDL_Rect source, SDL_Rect dest)
 {
     if (!renderer) {

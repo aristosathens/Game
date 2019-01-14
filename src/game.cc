@@ -7,6 +7,7 @@
 #include "game.h"
 
 #include "ECS/components.h"
+#include "ECS/collision.h"
 #include "util/print.h"
 #include "game_map.h"
 #include "texture_manager.h"
@@ -15,15 +16,17 @@
 // Globals
 //
 
-Manager manager;
+Manager  manager;
 GameMap* map;
-auto& player(manager.add_entity());
+auto&    player(manager.add_entity());
+auto&    wall(manager.add_entity());
 
 //
 // Game class static members
 //
 
 SDL_Renderer* Game::renderer = nullptr;
+SDL_Event     Game::game_event;
 
 //
 // Game class methods
@@ -86,16 +89,17 @@ void Game::init(const std::string title,
 
     // ECS
     player.add_component<TransformComponent>();
+    player.get_component<TransformComponent>().velocity().set(1, 1, 0);
     player.add_component<SpriteComponent>(assets + "main_player.png");
+    player.add_component<KeyboardControllerComponent>();
 
     is_running = true;
 }
 
 void Game::handle_events()
 {
-    SDL_Event event;
-    SDL_PollEvent(&event);
-    switch (event.type) {
+    SDL_PollEvent(&game_event);
+    switch (game_event.type) {
         case SDL_QUIT:
             is_running = false;
             break;
@@ -108,11 +112,6 @@ void Game::update()
 {
     manager.refresh();
     manager.update();
-
-    if (player.get_component<TransformComponent>().x() > 100) {
-        player.get_component<SpriteComponent>().set_texture(assets + "dirt.png");
-    }
-
 }
 
 void Game::render()

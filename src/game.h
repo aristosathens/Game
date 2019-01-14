@@ -56,10 +56,9 @@ class Game
     void update();
     void render();
     void clean();
+    bool running() const { return is_running; }
 
-    inline bool running() { return is_running; }
-
-    static SDL_Renderer* renderer;
+    static SDL_Event& event() { return game_event; }
 
     //
     // Private
@@ -69,6 +68,8 @@ class Game
     SDL_Window* window;
     std::string assets;
 
+    static SDL_Renderer* renderer;
+    static SDL_Event     game_event;
 };
 
 #endif // GAME_H

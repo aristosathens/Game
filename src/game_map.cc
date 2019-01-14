@@ -59,6 +59,15 @@ GameMap::GameMap()
     dest.h = 32;
 }
 
+// Destruct GameMap object.
+GameMap::~GameMap()
+{
+    TextureManager::destroy_texture(dirt);
+    TextureManager::destroy_texture(grass);
+    TextureManager::destroy_texture(water);
+
+}
+
 // Load a level into the GameMap.
 void GameMap::load_map(Level level /* = level1 */)
 {
