@@ -32,15 +32,19 @@ class SpriteComponent : public Component
         set_texture(path);
     }
 
+    ~SpriteComponent()
+    {
+        TextureManager::destroy_texture(texture);
+    }
+
     void init() override
     {
         transform = &entity->get_component<TransformComponent>();
         source_rect.x = 0;
         source_rect.y = 0;
-        source_rect.w = DEFAULT_SOURCE_RECT_WIDTH;
-        source_rect.h = DEFAULT_SOURCE_RECT_HEIGHT;
-        dest_rect.w = DEFAULT_DEST_RECT_WIDTH;
-        dest_rect.h = DEFAULT_DEST_RECT_HEIGHT;
+        source_rect.w = transform->size().x();
+        source_rect.h = transform->size().y();
+
     }
 
     void set_texture(const std::string& path)
@@ -50,8 +54,10 @@ class SpriteComponent : public Component
 
     void update() override
     {
-        dest_rect.x = transform->x();
-        dest_rect.y = transform->y();
+        dest_rect.x = static_cast<int>(transform->position().x());
+        dest_rect.y = static_cast<int>(transform->position().y());
+        dest_rect.w = transform->size().x() * transform->scale();
+        dest_rect.h = transform->size().y() * transform->scale();
     }
 
     void render() override
@@ -64,9 +70,9 @@ class SpriteComponent : public Component
     //
     private:
     TransformComponent* transform;
-    SDL_Texture* texture;
-    SDL_Rect source_rect;
-    SDL_Rect dest_rect;
+    SDL_Texture*        texture;
+    SDL_Rect            source_rect;
+    SDL_Rect            dest_rect;
 };
 
 #endif // SPRITE_COMPONENT_H

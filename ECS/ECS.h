@@ -70,10 +70,10 @@ class Component
     //
     public:
     Entity* entity; // reference to owner
-    virtual void init() {}
+    virtual void init()   {}
     virtual void update() {}
     virtual void render() {}
-    virtual ~Component() {}
+    virtual ~Component()  {}
 
     // private:
 };

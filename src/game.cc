@@ -92,6 +92,13 @@ void Game::init(const std::string title,
     player.get_component<TransformComponent>().velocity().set(1, 1, 0);
     player.add_component<SpriteComponent>(assets + "main_player.png");
     player.add_component<KeyboardControllerComponent>();
+    player.add_component<CollisionComponent>("player");
+
+    wall.add_component<TransformComponent>();
+    wall.get_component<TransformComponent>().position().set(300, 300, 0);
+    wall.get_component<TransformComponent>().size().set(300, 20, 1);
+    wall.add_component<SpriteComponent>(assets + "dirt.png");
+    wall.add_component<CollisionComponent>("wall");
 
     is_running = true;
 }
@@ -112,6 +119,12 @@ void Game::update()
 {
     manager.refresh();
     manager.update();
+
+    if (Collision::AABB(player.get_component<CollisionComponent>().hitbox(),
+                            wall.get_component<CollisionComponent>().hitbox())) {
+                                player.get_component<TransformComponent>().velocity().scale(-1);
+                                println("Wall hit!");
+                            }
 }
 
 void Game::render()
