@@ -4,6 +4,9 @@
 // Compiler guard
 //
 
+#ifndef COLLISION_COMPONENT_H
+#define COLLISION_COMPONENT_H
+
 //
 // Include
 //
@@ -16,7 +19,6 @@
 
 class CollisionComponent : public Component
 {
-
     //
     // Public
     //
@@ -54,3 +56,5 @@ class CollisionComponent : public Component
 
     TransformComponent* transform;
 };
+
+#endif // COLLISION_COMPONENT_H
